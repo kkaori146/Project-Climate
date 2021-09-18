@@ -1,4 +1,4 @@
-# /*General Informations*/
+# *General Informations*
 
 - Project developed in the JavaScript class (B7web);
 
