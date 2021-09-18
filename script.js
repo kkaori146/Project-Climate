@@ -4,6 +4,7 @@ document.querySelector('.busca').addEventListener('submit', async(event)=>{
     let input = document.querySelector('#searchInput').value;
 
     if(input !== '') {
+        clearInfo();
         showWarning('Loading...');
 
         let url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(input)}&appid=814f8c43d3c28d306f7d36c023b9bb91&units=metric&lang=en`;
@@ -21,10 +22,12 @@ document.querySelector('.busca').addEventListener('submit', async(event)=>{
                 windAngle: json.wind.deg
             });
         } else {
+            clearInfo();
             showWarning('Location not Found');
         }
-
-    } 
+    } else {
+        clearInfo();
+    }
 });
 
 function showInfo(json) {
@@ -39,6 +42,13 @@ function showInfo(json) {
     document.querySelector('.ventoInfo').innerHTML = `${json.windSpeed} <span>km/h</span>`;
 
     document.querySelector('.temp img').setAttribute('src', `http://openweathermap.org/img/wn/${json.tempIcon}@2x.png` );
+
+    document.querySelector('.ventoPonto').style.transform = `rotate(${json.windAngle-90}deg)`;
+}
+
+function clearInfo() {
+    showWarning('');
+    document.querySelector('.resultado').style.display = 'none';
 }
 
 function showWarning(msg) {
